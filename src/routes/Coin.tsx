@@ -1,9 +1,7 @@
 import { useQuery } from 'react-query';
-import { Routes, Route, Outlet, Link, useLocation, useParams, useMatch} from 'react-router-dom';
+import { Outlet, Link, useLocation, useParams, useMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
-import Chart from './Chart';
-import Price from './Price';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Title = styled.h1`
@@ -208,11 +206,7 @@ function Coin() {
                         <Link to={`/${coinId}/price`}>Price</Link>
                     </Tab>
                 </Tabs>
-                <Routes>
-                  <Route path={`/:coinId/chart`} element={<Chart coinId={ coinId as string } />} />
-                  <Route path={`/:coinId/price`} element={<Price />} />
-                </Routes>
-                <Outlet context={{ coinId }} />
+                <Outlet />
                 </>
             ) }
         </Container>
