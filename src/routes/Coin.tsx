@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query';
-import { Helmet } from 'react-helmet';
 import { Routes, Route, Outlet, Link, useLocation, useParams, useMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Chart from './Chart';
 import Price from './Price';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -142,6 +142,8 @@ interface PriceData {
     };
   }
 
+ 
+
 
 function Coin() {
     const { coinId } = useParams<RouteParams>();
@@ -161,11 +163,13 @@ function Coin() {
 
     return (
         <Container>
-            <Helmet>
+            <HelmetProvider>
+              <Helmet>
                 <title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </title>
-            </Helmet>
+              </Helmet>
+            </HelmetProvider>
             <Header>
                 <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name }</Title>
             </Header>
@@ -205,10 +209,10 @@ function Coin() {
                     </Tab>
                 </Tabs>
                 <Routes>
-                  <Route path={`/:coinId/chart`} element={<Chart coinId={coinId as string} />} />
-                    <Route path={`/:coinId/price`} element={<Price />} />
+                  <Route path={`/:coinId/chart`} element={<Chart coinId={ coinId as string } />} />
+                  <Route path={`/:coinId/price`} element={<Price />} />
                 </Routes>
-                <Outlet />
+                <Outlet context={{ coinId }} />
                 </>
             ) }
         </Container>
