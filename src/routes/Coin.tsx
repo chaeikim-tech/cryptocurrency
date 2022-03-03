@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { Helmet } from 'react-helmet';
-import { Routes, Route, Link, useLocation, useParams, useMatch} from 'react-router-dom';
+import { Routes, Route, Outlet, Link, useLocation, useParams, useMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Chart from './Chart';
@@ -205,9 +205,10 @@ function Coin() {
                     </Tab>
                 </Tabs>
                 <Routes>
+                  <Route path={`/:coinId/chart`} element={<Chart coinId={coinId as string} />} />
                     <Route path={`/:coinId/price`} element={<Price />} />
-                    <Route path={`/:coinId/chart`} element={<Chart coinId={coinId as string} />} />
                 </Routes>
+                <Outlet />
                 </>
             ) }
         </Container>
