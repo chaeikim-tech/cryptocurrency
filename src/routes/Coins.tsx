@@ -86,7 +86,7 @@ function Coins() {
                 {data?.slice(0,100).map((coin) => (
                   <Coin key={coin.id}>
                     <Link to={`/${coin.id}`} state={coin.name}>
-                      <Img src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
+                      <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}/>
                       {coin.name} &rarr;
                     </Link>
                   </Coin>
